@@ -1,24 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { Home } from "./components/Home";
+import { Header } from "./components/Header";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "./components/butTheme";
+import Test2 from "./components/Test2";
+import Test1 from "./components/Test1";
+import { QueryClient, QueryClientProvider } from "react-query";
+import Test3 from "./components/Test3";
 
 function App() {
+  const queryClient = new QueryClient();
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <QueryClientProvider client={queryClient}>
+      <ThemeProvider theme={theme}>
+        <Router>
+          <Header />
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/test2" element={<Test2 />} />
+            <Route path="/test1" element={<Test1 />} />
+            <Route path="/test3" element={<Test3 />} />
+          </Routes>
+        </Router>
+      </ThemeProvider>
+    </QueryClientProvider>
   );
 }
 
